@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="css/normalize.css" rel="stylesheet" />
+  <link href="css/style.min.css" rel="stylesheet" />
+
+  <title>UI by BURTONMEDIA</title>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      UI by BURTON<strong>MEDIA</strong>
+    </div>
+    <nav>
+      <select name="theme">
+        <option value="">Default</option>
+        <option value="dark">Dark</option>
+        <option value="high-contrast">High Contrast</option>
+      </select>
+    </nav>
+  </header>
+  <main class="layout-sidebar layout-sidebar-left">
+    <aside>
+      <nav>
+        <a href="#typography">Typography</a>
+        <div>
+          <a href="#forms">Forms</a>
+          <a href="#inputs">Inputs</a>
+          <a href="#buttons">Buttons</a>
+        </div>
+        <a href="#alerts">Alerts</a>
+        <div>
+          <a href="#data">Data</a>
+          <a href="#loaders">Loaders</a>
+          <a href="#tables">Tables</a>
+        </div>
+        <a href="#layout">Layout</a>
+        <a href="#modal">Modal</a>
+        <a href="#navigation">Navigation</a>
+      </nav>
+    </aside>
+    <section>
+      <article name="typography">
+        <h1>Typography</h1>
+        <h1>This is a Heading 1</h1>
+        <p>Lorem ipsum dolor sit amet <a href="#">consectetur adipisicing</a> elit. Dolores facilis unde, ullam
+          perferendis soluta
+          minima
+          consectetur eveniet! Rerum, earum.</p>
+
+        <h2>This is a Heading 2</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <em>Dolores facilis unde, ullam perferendis
+            soluta</em>
+          minima
+          consectetur eveniet! Rerum, earum.</p>
+
+        <h3>This is a Heading 3</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facilis unde, <strong>ullam
+            perferendis</strong> soluta
+          minima
+          consectetur eveniet! Rerum, earum.</p>
+
+        <h4>This is a Heading 4</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facilis unde, ullam perferendis soluta
+          minima
+          consectetur eveniet! Rerum, earum.</p>
+
+        <h5>This is a Heading 5</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facilis unde, ullam perferendis soluta
+          minima
+          consectetur eveniet! Rerum, earum.</p>
+
+        <blockquote>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas beatae, facilis tempora quo qui a fugiat fuga
+          eos
+          at
+          commodi distinctio repellat tempore veritatis, blanditiis voluptatum nihil numquam autem maiores.
+          <cite>Jesse Burton</cite>
+        </blockquote>
+      </article>
+      <article id="forms">
+        <h1>Forms</h1>
+        <form>
+          <h2 id="inputs">Inputs</h2>
+          <div>
+            <label>Text Input</label>
+            <input type="text" placeholder="Enter some text..." />
+          </div>
+          <div>
+            <label>Email Input</label>
+            <input type="email" placeholder="email@domain.com" />
+          </div>
+          <div>
+            <label>Phone Input</label>
+            <input type="phone" placeholder="xxx-xxx-xxxx" />
+          </div>
+          <div class="grid">
+            <div>
+              <label>First Name</label>
+              <input type="text" placeholder="First Name" />
+            </div>
+            <div>
+              <label>Last Name</label>
+              <input type="text" placeholder="Last Name" />
+            </div>
+          </div>
+          <div>
+            <select>
+              <option value="">-- Make a selection --</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <option value="4">Option 4</option>
+              <option value="5">Option 5</option>
+            </select>
+          </div>
+          <div class="grid columns-3">
+            <div>
+              <select>
+                <option value="">-- Make a selection --</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+              </select>
+            </div>
+            <div>
+              <select>
+                <option value="">-- Make a selection --</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+              </select>
+            </div>
+            <div>
+              <select>
+                <option value="">-- Make a selection --</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="flex flex-stacked">
+              <label><input type="radio" name="radio" /> Radio 1</label>
+              <label><input type="radio" name="radio" /> Radio 2</label>
+              <label><input type="radio" name="radio" /> Radio 3</label>
+              <label><input type="radio" name="radio" /> Radio 4</label>
+              <label><input type="radio" name="radio" /> Radio 5</label>
+            </div>
+            <div class="flex flex-stacked">
+              <label><input type="checkbox" name="checkbox" /> CheckBox 1</label>
+              <label><input type="checkbox" name="checkbox" /> CheckBox 2</label>
+              <label><input type="checkbox" name="checkbox" /> CheckBox 3</label>
+              <label><input type="checkbox" name="checkbox" /> CheckBox 4</label>
+              <label><input type="checkbox" name="checkbox" /> CheckBox 5</label>
+            </div>
+          </div>
+        </form>
+        <form>
+          <h2 id="buttons">Buttons</h2>
+          <div>
+            <button>Standard</button>
+            <button class="inverted">Inverted</button>
+            <button>
+              <i class="fas fa-arrow-circle-left"></i> <span>Icon Left</span>
+            </button>
+            <button>
+              <span>Icon Right</span> <i class="fas fa-arrow-circle-right"></i>
+            </button>
+          </div>
+          <div>
+            <button class="small">Small</button>
+            <button>Regular</button>
+            <button class="large">Large</button>
+            <button class="large inverted">Large</button>
+            <button class="inverted">Regular</button>
+            <button class="small inverted">Small</button>
+          </div>
+          <div>
+            You can also use a <button class="link">button As link</button> within content.
+          </div>
+        </form>
+      </article>
+    </section>
+  </main>
+
+  <script src=" https://kit.fontawesome.com/a485eae506.js" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -25,8 +25,10 @@
 
   /* Colors by Use */
   --primary: var(--blue);
+  --primaryDark: #2f5e84;
   --backgroundColor: var(--white);
   --fontColor: var(--black);
+  --blockQuoteColor: var(--grey);
   --headingColor: var(--primary);
   --headerBackgroundColor: var(--primary);
   --headerFontColor: var(--white);
@@ -40,6 +42,19 @@
   --bodyLineHeight: 1.65;
   --headingFont: 'Raleway', sans-serif;
   --maxParagraphWidth: 65ch;
+
+  /* Forms */
+  --inputBorderWidth: 1px;
+  --buttonBackgroundColor: var(--primary);
+  --buttonColor: var(--white);
+  --buttonBorder: none;
+  --buttonBackgroundColorHover: var(--primaryDark);
+  --buttonColorHover: var(--white);
+  --buttonFontWeight: 700;
+  --buttonTextTransform: uppercase;
+  --buttonFontSize: 1em;
+  --buttonBorderWidth: var(--inputBorderWidth);
+  --buttonBorderRadius: none;
 
   /* Shadows */
   --height-1:	0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -61,6 +76,67 @@
   /* Animations & Transitions */
   --standardTransition: .3s ease;
 }
+
+/* Themes */
+.dark {
+    --primary: var(--white);
+    --backgroundColor: var(--blue);
+    --fontColor: var(--white);
+    --blockQuoteColor: var(--white);
+    --headingColor: var(--white);
+    --headerBackgroundColor: var(--blue);
+    --headerFontColor: var(--white);
+    --sideNavItemBG: var(--blue);
+    --sideNavItemColor: var(--white);
+    --sideNavItemBGHover: var(--white);
+    --sideNavItemColorHover: var(--blue);
+    --line: 1px solid var(--white);
+}
+
+.high-contrast {
+  --white: #FFFFFF;
+  --black: #000000;
+  --grey: #585852;
+  --blue: #00136a;
+  --red: #dd65a9;
+  --green: #C9D5B5;
+  --yellow: #d3ce77;
+
+  --primary: var(--blue);
+  --backgroundColor: var(--white);
+  --fontColor: var(--black);
+  --blockQuoteColor: var(--grey);
+  --headingColor: var(--primary);
+  --headerBackgroundColor: var(--primary);
+  --headerFontColor: var(--white);
+  --sideNavItemBG: var(--backgroundColor);
+  --sideNavItemColor: var(--blue);
+  --sideNavItemBGHover: var(--blue);
+  --sideNavItemColorHover: var(--white);
+}
+
+/* Mixins */
+@mixin link-hover {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0.6;
+    background-color: var(--primary);
+    transition: height .2s ease;
+  }
+
+  &:hover::after {
+    height: 3px;
+  }
+}
+
+/* Styles */
 
 html {
   box-sizing: border-box;
@@ -109,6 +185,13 @@ header {
     a + a {
       margin-left: var(--space-1);
     }
+
+    select {
+      padding: 0.8em 1.15em;
+      background-color: var(--headerBackgroundColor);
+      color: var(--headerColor);
+      border: var(--line);
+    }
   }
 
   &.fixed {
@@ -132,6 +215,8 @@ main > aside {
   grid-area: sidebar;
 
   nav {
+    position: sticky;
+    top: 5rem;
     display: flex;
     flex-direction: column;
 
@@ -190,16 +275,27 @@ main > section {
   grid-area: content;
 }
 
+main section article + article {
+  margin-top: var(--space-5);
+}
+
 p {
   max-width: var(--maxParagraphWidth);
   margin-bottom: var(--space-1);
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    @include link-hover;
+  }
 }
 
 blockquote {
   font-size: 1.15em;
   font-style: italic;
   margin: var(--space-2) 0;
-  color: var(--grey);
+  color: var(--blockQuoteColor);
   padding: var(--space-2);
   max-width: calc(var(--maxParagraphWidth) - (2 * var(--space-2)));
   border: var(--line);
@@ -228,6 +324,10 @@ h1, h2, h3, h4, h5 {
 h1 {
   margin-top: 0;
   font-size: var(--fontSize-6);
+
+  & + h1 {
+    margin-top: 3rem;
+  }
 }
 
 h2 {font-size: var(--fontSize-5);}
@@ -253,10 +353,24 @@ form {
   input[type=text],
   input[type=email],
   input[type=phone],
+  input[type=date],
   input[type=number] {
     width: 100%;
     padding: 0.8em 1em;
-    border: var(--line);
+    border: var(--inputBorderWidth) solid var(--grey);
+    border-radius: var(--rounded-1);
+
+    &:focus {
+      outline: none;
+      box-shadow: var(--height-2);
+      border-color: var(--primary);
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 0.8em 1em;
+    border: var(--inputBorderWidth) solid var(--grey);
     border-radius: var(--rounded-1);
 
     &:focus {
@@ -268,6 +382,72 @@ form {
 
   ::placeholder {
     color: var(--grey);
+  }
+
+  button {
+    padding: 0.8em 1.15em;
+    background-color: var(--buttonBackgroundColor);
+    color: var(--buttonColor);
+    border: var(--buttonBorder);
+    font-size: var(--buttonFontSize);
+    font-weight: var(--buttonFontWeight);
+    text-transform: var(--buttonTextTransform);
+    transition: background-color .3s ease, color .3s ease;
+    border: var(--buttonBorderWidth) solid transparent;
+    border-radius: var(--buttonBorderRadius);
+    cursor: pointer;
+
+    & + button {
+      margin-left: 0.5em;
+    }
+
+    &.small {
+      font-size: calc(var(--buttonFontSize) - 0.2em);
+    }
+    &.large {
+      font-size: calc(var(--buttonFontSize) + 0.2em);
+    }
+
+    i:first-child,
+    svg:first-child{
+      margin-right: 0.5em;
+    }
+
+    i:last-child,
+    svg:last-child{
+      margin-left: 0.5em;
+    }
+
+    &:hover {
+      background-color: var(--buttonBackgroundColorHover);
+      color: var(--buttonColorHover);
+    }
+
+    &.inverted {
+      background-color: var(--buttonBbuttonColorckgroundColor);
+      color: var(--buttonBackgroundColor);
+      border: var(--buttonBorderWidth) solid var(--buttonBackgroundColor);
+
+      &:hover {
+        background-color: var(--primaryDark);
+        color: var(--buttonColor);
+      }
+    }
+
+    &.link {
+      padding: 0;
+      display: inline;
+      text-transform: initial;
+      background-color: transparent;
+      color: var(--buttonBackgroundColor);
+      border: none;
+
+      @include link-hover;
+    }
+  }
+
+  & + form {
+    margin-top: var(--space-4);
   }
 }
 
@@ -300,7 +480,7 @@ form {
 
 /* Grid */
 .grid {
-  --gridColumns: 2
+  --gridColumns: 2;
   display: grid;
   grid-template-columns: repeat(var(--gridColumns), 1fr);
   column-gap: var(--space-2);
@@ -308,16 +488,26 @@ form {
 
 .columns-3 {
   --gridColumns: 3;
-  display: none;
+}
+
+.columns-4 {
+  --gridColumns: 4;
 }
 
 /* Flex */
-.split {
+.flex {
   display: flex;
+  align-items: center;
+}
+
+.split {
   flex-flow: wrap;
   justify-content: space-between;
 }
 
-.split-center {
-  align-items: center;
+.flex-stacked {
+  flex-direction: column;
 }
+
+
+
