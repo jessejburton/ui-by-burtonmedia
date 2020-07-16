@@ -13,10 +13,18 @@
 
 <body>
   <header>
-    <div class="brand">
+    <div>
       UI by BURTON<strong>MEDIA</strong>
     </div>
     <nav>
+      <label>Layout:</label>
+      <select name="layout">
+        <option value="layout-sidebar layout-sidebar-left">Left Sidebar</option>
+        <option value="layout-sidebar layout-sidebar-right">RIght Sidebar</option>
+        <option value="layout-no-sidebar">No Sidebar</option>
+        <option value="layout-fullwidth">Full Width</option>
+      </select>
+      <label>Theme:</label>
       <select name="theme">
         <option value="">Default</option>
         <option value="dark">Dark</option>
@@ -29,13 +37,13 @@
       <nav>
         <a href="#typography">Typography</a>
         <div>
-          <a href="#forms">Forms</a>
+          <a href="javascript:void(0)">Forms</a>
           <a href="#inputs">Inputs</a>
           <a href="#buttons">Buttons</a>
         </div>
         <a href="#alerts">Alerts</a>
         <div>
-          <a href="#data">Data</a>
+          <a href="javascript:void(0)">Data</a>
           <a href="#loaders">Loaders</a>
           <a href="#tables">Tables</a>
         </div>
@@ -44,9 +52,11 @@
         <a href="#navigation">Navigation</a>
       </nav>
     </aside>
+
+
     <section>
+      <h1>Typography</h1>
       <article name="typography">
-        <h1>Typography</h1>
         <h1>This is a Heading 1</h1>
         <p>Lorem ipsum dolor sit amet <a href="#">consectetur adipisicing</a> elit. Dolores facilis unde, ullam
           perferendis soluta
@@ -83,8 +93,11 @@
           <cite>Jesse Burton</cite>
         </blockquote>
       </article>
+
+      <hr />
+
+      <h1>Forms</h1>
       <article id="forms">
-        <h1>Forms</h1>
         <form>
           <h2 id="inputs">Inputs</h2>
           <div>
@@ -120,7 +133,7 @@
             </select>
           </div>
           <div class="grid columns-3">
-            <div>
+            <div class="select-container">
               <select>
                 <option value="">-- Make a selection --</option>
                 <option value="1">Option 1</option>
@@ -130,7 +143,7 @@
                 <option value="5">Option 5</option>
               </select>
             </div>
-            <div>
+            <div class="select-container">
               <select>
                 <option value="">-- Make a selection --</option>
                 <option value="1">Option 1</option>
@@ -140,7 +153,7 @@
                 <option value="5">Option 5</option>
               </select>
             </div>
-            <div>
+            <div class="select-container">
               <select>
                 <option value="">-- Make a selection --</option>
                 <option value="1">Option 1</option>
@@ -153,18 +166,23 @@
           </div>
           <div class="grid">
             <div class="flex flex-stacked">
-              <label><input type="radio" name="radio" /> Radio 1</label>
-              <label><input type="radio" name="radio" /> Radio 2</label>
-              <label><input type="radio" name="radio" /> Radio 3</label>
-              <label><input type="radio" name="radio" /> Radio 4</label>
-              <label><input type="radio" name="radio" /> Radio 5</label>
+              <input type="radio" name="radio" id="radio1" /><label for="radio1">Radio 1</label>
+              <input type="radio" name="radio" id="radio2" /><label for="radio2">Radio 2</label>
+              <input type="radio" name="radio" id="radio3" /><label for="radio3">Radio 3</label>
+              <input type="radio" name="radio" id="radio4" /><label for="radio4">Radio 4</label>
+              <input type="radio" name="radio" id="radio5" /><label for="radio5">Radio 5</label>
             </div>
             <div class="flex flex-stacked">
-              <label><input type="checkbox" name="checkbox" /> CheckBox 1</label>
-              <label><input type="checkbox" name="checkbox" /> CheckBox 2</label>
-              <label><input type="checkbox" name="checkbox" /> CheckBox 3</label>
-              <label><input type="checkbox" name="checkbox" /> CheckBox 4</label>
-              <label><input type="checkbox" name="checkbox" /> CheckBox 5</label>
+              <input type="checkbox" checked name="checkbox" id="checkbox1" />
+              <label for="checkbox1">CheckBox 1</label>
+              <input type="checkbox" name="checkbox" id="checkbox2" />
+              <label for="checkbox2">CheckBox 2</label>
+              <input type="checkbox" name="checkbox" id="checkbox3" />
+              <label for="checkbox3">CheckBox 3</label>
+              <input type="checkbox" name="checkbox" id="checkbox4" />
+              <label for="checkbox4">CheckBox 4</label>
+              <input type="checkbox" name="checkbox" id="checkbox5" />
+              <label for="checkbox5">CheckBox 5</label>
             </div>
           </div>
         </form>
@@ -193,8 +211,134 @@
           </div>
         </form>
       </article>
+
+      <hr />
+
+      <h1>Data</h1>
+      <article id="loaders">
+        <h2>Loaders</h2>
+        <p>These loaders do require a class to decide which style you want but then you can add as many
+          classless span's to decide how many dots you want. The rest is handled by CSS</p>
+        <div class="grid columns-4">
+          <div class="loader-updown">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="loader-updown">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="loader-inout">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="loader-inout">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        </div>
+      </article>
+      <article id="tables">
+        <h2>Tables</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Column 1</th>
+              <th>Column 2</th>
+              <th>Column 3</th>
+              <th>Column 4</th>
+              <th>Column 5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>$600</td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>$600</td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>$600</td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>$600</td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>value</td>
+              <td>$600</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">TOTAL</td>
+              <td>$3000.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </article>
     </section>
   </main>
+
+  <footer class="grid columns-3">
+    <div>
+      <h3>Contact</h3>
+      <a href="#"></a>
+      <a href="#"></a>
+      <a href="#"></a>
+      <a href="#"></a>
+    </div>
+    <div>
+      <h3>Links</h3>
+      <ul>
+        <li><a href="">GitHub Repository</a></li>
+        <li><a href="https://www.burtonmediainc.com">www.burtonmediainc.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>UI by BURTONMEDIA</h3>
+      <p>A minimal Class CSS Framework created by <a href="mailto:jesse@burtonmediainc.com">Jesse Burton</a></p>
+      <small>&copy; 2020</small>
+    </div>
+  </footer>
+
+  <section name="loading">
+    <h3>Loading...</h3>
+    <div class="loader-updown">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </section>
 
   <script src=" https://kit.fontawesome.com/a485eae506.js" crossorigin="anonymous"></script>
   <script src="js/main.js"></script>

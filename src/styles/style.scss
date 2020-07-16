@@ -1,8 +1,9 @@
 :root {
   /* Colors by Name */
-  --white: #E3DBDB;
+  --white: #f4fdff;
   --black: #4E3D42;
-  --grey: #9F9F92;
+  --grey-1: #e6e4f0;
+  --grey-2: #9F9F92;
   --blue: #3E7CB1;
   --red: #dd65a9;
   --green: #C9D5B5;
@@ -26,16 +27,17 @@
   /* Colors by Use */
   --primary: var(--blue);
   --primaryDark: #2f5e84;
-  --backgroundColor: var(--white);
+  --backgroundColor: var(--grey-1);
   --fontColor: var(--black);
-  --blockQuoteColor: var(--grey);
+  --blockQuoteBackgroundColor: var(--white);
+  --blockQuoteColor: var(--grey-2);
   --headingColor: var(--primary);
   --headerBackgroundColor: var(--primary);
-  --headerFontColor: var(--white);
+  --headerFontColor: var(--grey-1);
   --sideNavItemBG: var(--backgroundColor);
   --sideNavItemColor: var(--blue);
   --sideNavItemBGHover: var(--blue);
-  --sideNavItemColorHover: var(--white);
+  --sideNavItemColorHover: var(--grey-1);
 
   /* Typography */
   --bodyFont: 'Roboto', sans-serif;
@@ -45,16 +47,30 @@
 
   /* Forms */
   --inputBorderWidth: 1px;
+  --inputBorderRadius: 3px;
   --buttonBackgroundColor: var(--primary);
-  --buttonColor: var(--white);
+  --buttonColor: var(--grey-1);
   --buttonBorder: none;
   --buttonBackgroundColorHover: var(--primaryDark);
-  --buttonColorHover: var(--white);
+  --buttonColorHover: var(--grey-1);
+  --buttonBorderColor: transparent;
   --buttonFontWeight: 700;
   --buttonTextTransform: uppercase;
   --buttonFontSize: 1em;
   --buttonBorderWidth: var(--inputBorderWidth);
   --buttonBorderRadius: none;
+
+  /* Tables */
+  --tableHeaderBackgroundColor: var(--grey-2);
+  --tableHeaderColor: var(--white);
+  --tableHeaderSpace: 0.6em;
+  --tableRowBackgroundOdd: var(--grey-1);
+  --tableRowBackgroundEven: var(--white);
+  --tableColor: var(--fontColor);
+  --tableSpace: 0.5em 1em;
+  --tableFooterBackgroundColor: var(--black);
+  --tableFooterColor: var(--white);
+  --tableFooterSpace: 0.5em 1em;
 
   /* Shadows */
   --height-1:	0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -71,48 +87,68 @@
   --columnGap: var(--space-3);
 
   /* Styling */
-  --line: 1px solid var(--grey);
+  --line: 1px solid var(--grey-2);
 
   /* Animations & Transitions */
   --standardTransition: .3s ease;
 }
 
 /* Themes */
-.dark {
+.dark,
+body[data-theme=dark] {
+    --blue: var(--white);
     --primary: var(--white);
-    --backgroundColor: var(--blue);
+    --primaryDark: var(--white);
+    --backgroundColor: var(--black);
     --fontColor: var(--white);
-    --blockQuoteColor: var(--white);
+    --blockQuoteColor: var(--black);
     --headingColor: var(--white);
-    --headerBackgroundColor: var(--blue);
+    --headerBackgroundColor: var(--black);
     --headerFontColor: var(--white);
-    --sideNavItemBG: var(--blue);
+    --sideNavItemBG: var(--black);
     --sideNavItemColor: var(--white);
     --sideNavItemBGHover: var(--white);
-    --sideNavItemColorHover: var(--blue);
+    --sideNavItemColorHover: var(--black);
     --line: 1px solid var(--white);
+    --buttonBackgroundColor: var(--white);
+    --buttonColor: var(--black);
+    --buttonBackgroundColorHover: var(--black);
+    --buttonColorHover: var(--white);
+    --buttonBorderColor: var(--white);
 }
 
-.high-contrast {
+.high-contrast,
+body[data-theme=high-contrast] {
   --white: #FFFFFF;
   --black: #000000;
   --grey: #585852;
-  --blue: #00136a;
+  --blue: #020f49;
   --red: #dd65a9;
   --green: #C9D5B5;
   --yellow: #d3ce77;
 
   --primary: var(--blue);
+  --primaryDark: var(--black);
   --backgroundColor: var(--white);
   --fontColor: var(--black);
-  --blockQuoteColor: var(--grey);
-  --headingColor: var(--primary);
-  --headerBackgroundColor: var(--primary);
+  --blockQuoteColor: var(--blue);
+  --headingColor: var(--white);
+  --headerBackgroundColor: var(--blue);
   --headerFontColor: var(--white);
-  --sideNavItemBG: var(--backgroundColor);
+  --sideNavItemBG: var(--white);
   --sideNavItemColor: var(--blue);
   --sideNavItemBGHover: var(--blue);
   --sideNavItemColorHover: var(--white);
+  --line: 1px solid var(--blue);
+  --buttonBackgroundColor: var(--blue);
+  --buttonColor: var(--white);
+  --buttonBackgroundColorHover: var(--black);
+  --buttonColorHover: var(--white);
+  --buttonBorderColor: var(--white);
+
+  header select {
+    border-color: var(--white);
+  }
 }
 
 /* Mixins */
@@ -154,6 +190,12 @@ body {
   font-weight: 400;
   line-height: var(--bodyLineHeight);
   color: var(--fontColor);
+
+  &.loading {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 header {
@@ -166,7 +208,7 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  .brand {
+  div:first-child {
     font-size: var(--fontSize-4);
   }
 
@@ -182,7 +224,7 @@ header {
       text-transform: uppercase;
     }
 
-    a + a {
+    > * + * {
       margin-left: var(--space-1);
     }
 
@@ -191,13 +233,18 @@ header {
       background-color: var(--headerBackgroundColor);
       color: var(--headerColor);
       border: var(--line);
+      border-radius: var(--inputBorderRadius);
     }
   }
 
+  /*  You can make the header fixed and the
+      content will adjust accordingly */
   &.fixed {
     position: fixed;
     top: 0;
     left: 0;
+    box-shadow: var(--height-3);
+    z-index: 1000;
 
     & + main {
       margin-top: calc(var(--headerHeight) + var(--mainContentSpace));
@@ -216,7 +263,7 @@ main > aside {
 
   nav {
     position: sticky;
-    top: 5rem;
+    top: calc(var(--headerHeight) + var(--mainContentSpace));
     display: flex;
     flex-direction: column;
 
@@ -279,6 +326,12 @@ main section article + article {
   margin-top: var(--space-5);
 }
 
+hr {
+  margin: var(--space-4) 0;
+  border: var(--line);
+  opacity: 0.3;
+}
+
 p {
   max-width: var(--maxParagraphWidth);
   margin-bottom: var(--space-1);
@@ -296,6 +349,7 @@ blockquote {
   font-style: italic;
   margin: var(--space-2) 0;
   color: var(--blockQuoteColor);
+  background-color: var(--blockQuoteBackgroundColor);
   padding: var(--space-2);
   max-width: calc(var(--maxParagraphWidth) - (2 * var(--space-2)));
   border: var(--line);
@@ -319,6 +373,10 @@ h1, h2, h3, h4, h5 {
   font-weight: 400;
   line-height: 1.15;
   color: var(--primary);
+}
+
+h1 + article {
+  margin-top: var(--space-2);
 }
 
 h1 {
@@ -358,7 +416,7 @@ form {
     width: 100%;
     padding: 0.8em 1em;
     border: var(--inputBorderWidth) solid var(--grey);
-    border-radius: var(--rounded-1);
+    border-radius: var(--inputBorderRadius);
 
     &:focus {
       outline: none;
@@ -371,7 +429,7 @@ form {
     width: 100%;
     padding: 0.8em 1em;
     border: var(--inputBorderWidth) solid var(--grey);
-    border-radius: var(--rounded-1);
+    border-radius: var(--inputBorderRadius);
 
     &:focus {
       outline: none;
@@ -380,8 +438,118 @@ form {
     }
   }
 
+  .select-container {
+    position: relative;
+
+    &::after {
+      content: '▼';
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 2.2em;
+      font-size: 1.2em;
+      display: flex;
+      align-items:center;
+      justify-content: center;
+      background-color: var(--buttonBackgroundColor);
+      color: var(--buttonColor);
+      pointer-events: none;
+      transition: background-color .3s ease, color .3s ease;
+    }
+
+    select {
+      appearance: none;
+      padding: 0.9em 1em;
+    }
+
+    &:hover::after {
+      background-color: var(--buttonBackgroundColorHover);
+      color: var(--buttonColorHover);
+    }
+  }
+
   ::placeholder {
     color: var(--grey);
+  }
+
+  /* CHECKBOXES & RADIOS */
+  input[type=radio],
+  input[type=checkbox] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  // Radios
+  input[type=radio] + label {
+    position: relative;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      transform: translate(-0.75em, 0.3em);
+      width: 0.9em;
+      height: 0.9em;
+      background-color: var(--buttonColor);
+      border: var(--inputBorderWidth) solid var(--buttonBackgroundColor);
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      transform: translate(-0.55em, 0.5em);
+      width: 0.5em;
+      height: 0.5em;
+      background-color: var(--buttonBackgroundColor);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+  }
+
+  // Checkboxes
+  input[type=checkbox] + label {
+    position: relative;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      transform: translate(-0.75em, 0.3em);
+      width: 0.9em;
+      height: 0.9em;
+      background-color: var(--buttonColor);
+      border: var(--inputBorderWidth) solid var(--buttonBackgroundColor);
+    }
+
+    &::after {
+      content: '🗸';
+      position: absolute;
+      left: 0;
+      transform: translate(-0.5em, -0.35em);
+      font-weight: 900;
+      font-size: 1.5em;
+      overflow: visible;
+      width: 1em;
+      height: 1em;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+  }
+
+  input[type=checkbox]:checked + label,
+  input[type=radio]:checked + label {
+    font-weight: 600;
+  }
+
+  input[type=checkbox]:checked + label::after,
+  input[type=radio]:checked + label::after {
+    opacity: 1;
   }
 
   button {
@@ -393,7 +561,7 @@ form {
     font-weight: var(--buttonFontWeight);
     text-transform: var(--buttonTextTransform);
     transition: background-color .3s ease, color .3s ease;
-    border: var(--buttonBorderWidth) solid transparent;
+    border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
     border-radius: var(--buttonBorderRadius);
     cursor: pointer;
 
@@ -418,13 +586,18 @@ form {
       margin-left: 0.5em;
     }
 
+    i:only-child,
+    svg:only-child{
+      margin: 0 0.25em;
+    }
+
     &:hover {
       background-color: var(--buttonBackgroundColorHover);
       color: var(--buttonColorHover);
     }
 
     &.inverted {
-      background-color: var(--buttonBbuttonColorckgroundColor);
+      background-color: var(--buttonColor);
       color: var(--buttonBackgroundColor);
       border: var(--buttonBorderWidth) solid var(--buttonBackgroundColor);
 
@@ -451,8 +624,135 @@ form {
   }
 }
 
+/* LOADERS */
+section[name=loading]{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  color: var(--primary);
+  background-color: var(--backgroundColor);
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.loading section[name=loading]{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loader-updown {
+  span {
+    display: inline-block;
+    position: relative;
+    width: 0.75em;
+    height: 0.75em;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: upDown;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    &:nth-child(even){
+      animation-delay: .5s;
+    }
+  }
+}
+
+.loader-inout {
+  span {
+    display: inline-block;
+    position: relative;
+    width: 0.75em;
+    height: 0.75em;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: inOut;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    &:nth-child(even){
+      animation-delay: .5s;
+    }
+  }
+}
+
+@keyframes upDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes inOut {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
+/* TABLES */
+table {
+  border: none;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    th {
+      background-color: var(--tableHeaderBackgroundColor);
+      color: var(--tableHeaderColor);
+      padding: var(--tableHeaderSpace);
+      text-align: left;
+    }
+  }
+
+  tbody {
+    td {
+      padding: var(--tableSpace);
+      color: var(--tableColor);
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--tableRowBackgroundEven);
+    }
+    tr:nth-child(odd) {
+      background-color: var(--tableRowBackgroundOdd);
+    }
+  }
+
+  tfoot {
+    tr {
+      background-color: var(--tableFooterBackgroundColor);
+      color: var(--tableFooterColor);
+    }
+
+    td {
+      padding: var(--tableFooterSpace);
+    }
+  }
+}
+
 .layout-fullwidth {
   max-width: none;
+
+  & > * {
+    margin-bottom: var(--space-3);
+  }
 }
 
 .layout-no-sidebar {
