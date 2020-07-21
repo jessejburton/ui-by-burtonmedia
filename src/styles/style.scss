@@ -38,6 +38,8 @@
   --sideNavItemColor: var(--blue);
   --sideNavItemBGHover: var(--blue);
   --sideNavItemColorHover: var(--grey-1);
+  --footerBackgroundColor: var(--black);
+  --footerColor: var(--white);
 
   /* Typography */
   --bodyFont: 'Roboto', sans-serif;
@@ -71,6 +73,11 @@
   --tableFooterBackgroundColor: var(--black);
   --tableFooterColor: var(--white);
   --tableFooterSpace: 0.5em 1em;
+
+  /* Cards */
+  --cardHeaderColor: var(--primary);
+  --cardIconColor: var(--fontColor);
+  --cardIconColorHover: var(--primary);
 
   /* Shadows */
   --height-1:	0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -115,6 +122,9 @@ body[data-theme=dark] {
     --buttonBackgroundColorHover: var(--black);
     --buttonColorHover: var(--white);
     --buttonBorderColor: var(--white);
+    --cardHeaderColor: var(--black);
+    --cardIconColor: var(--black);
+    --cardIconColorHover: var(--black);
 }
 
 .high-contrast,
@@ -145,6 +155,11 @@ body[data-theme=high-contrast] {
   --buttonBackgroundColorHover: var(--black);
   --buttonColorHover: var(--white);
   --buttonBorderColor: var(--white);
+  --cardHeaderColor: var(--black);
+  --cardIconColor: var(--black);
+  --cardIconColorHover: var(--black);
+  --tableHeaderBackgroundColor: var(--blue);
+  --tableFooterBackgroundColor: var(--black);
 
   header select {
     border-color: var(--white);
@@ -322,8 +337,10 @@ main > section {
   grid-area: content;
 }
 
-main section article + article {
+main > section > article + article,
+main > section > article + section {
   margin-top: var(--space-5);
+  overflow-x: scroll;
 }
 
 hr {
@@ -470,7 +487,7 @@ form {
   }
 
   ::placeholder {
-    color: var(--grey);
+    color: var(--grey-1);
   }
 
   /* CHECKBOXES & RADIOS */
@@ -552,75 +569,88 @@ form {
     opacity: 1;
   }
 
-  button {
-    padding: 0.8em 1.15em;
-    background-color: var(--buttonBackgroundColor);
-    color: var(--buttonColor);
-    border: var(--buttonBorder);
-    font-size: var(--buttonFontSize);
-    font-weight: var(--buttonFontWeight);
-    text-transform: var(--buttonTextTransform);
-    transition: background-color .3s ease, color .3s ease;
-    border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
-    border-radius: var(--buttonBorderRadius);
-    cursor: pointer;
+  & + form {
+    margin-top: var(--space-4);
+  }
+}
 
-    & + button {
-      margin-left: 0.5em;
-    }
+/* BUTTONS */
+button {
+  padding: 0.8em 1.15em;
+  background-color: var(--buttonBackgroundColor);
+  color: var(--buttonColor);
+  border: var(--buttonBorder);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  text-transform: var(--buttonTextTransform);
+  transition: background-color .3s ease, color .3s ease;
+  border: var(--buttonBorderWidth) solid var(--buttonBorderColor);
+  border-radius: var(--buttonBorderRadius);
+  cursor: pointer;
 
-    &.small {
-      font-size: calc(var(--buttonFontSize) - 0.2em);
-    }
-    &.large {
-      font-size: calc(var(--buttonFontSize) + 0.2em);
-    }
+  & + button {
+    margin-left: 0.5em;
+  }
 
-    i:first-child,
-    svg:first-child{
-      margin-right: 0.5em;
-    }
+  &.small {
+    font-size: calc(var(--buttonFontSize) - 0.2em);
+  }
+  &.large {
+    font-size: calc(var(--buttonFontSize) + 0.2em);
+  }
 
-    i:last-child,
-    svg:last-child{
-      margin-left: 0.5em;
-    }
+  i:first-child,
+  svg:first-child{
+    margin-right: 0.5em;
+  }
 
-    i:only-child,
-    svg:only-child{
-      margin: 0 0.25em;
-    }
+  i:last-child,
+  svg:last-child{
+    margin-left: 0.5em;
+  }
+
+  i:only-child,
+  svg:only-child{
+    margin: 0 0.25em;
+  }
+
+  &:hover {
+    background-color: var(--buttonBackgroundColorHover);
+    color: var(--buttonColorHover);
+  }
+
+  &.inverted {
+    background-color: var(--buttonColor);
+    color: var(--buttonBackgroundColor);
+    border: var(--buttonBorderWidth) solid var(--buttonBackgroundColor);
 
     &:hover {
-      background-color: var(--buttonBackgroundColorHover);
-      color: var(--buttonColorHover);
-    }
-
-    &.inverted {
-      background-color: var(--buttonColor);
-      color: var(--buttonBackgroundColor);
-      border: var(--buttonBorderWidth) solid var(--buttonBackgroundColor);
-
-      &:hover {
-        background-color: var(--primaryDark);
-        color: var(--buttonColor);
-      }
-    }
-
-    &.link {
-      padding: 0;
-      display: inline;
-      text-transform: initial;
-      background-color: transparent;
-      color: var(--buttonBackgroundColor);
-      border: none;
-
-      @include link-hover;
+      background-color: var(--primaryDark);
+      color: var(--buttonColor);
     }
   }
 
-  & + form {
-    margin-top: var(--space-4);
+  &.link {
+    padding: 0;
+    display: inline;
+    text-transform: initial;
+    background-color: transparent;
+    color: var(--buttonBackgroundColor);
+    border: none;
+
+    @include link-hover;
+  }
+
+  @media screen and (max-width: 550px) {
+    &:not(.link){
+      width: 100%;
+      padding: 1rem 1.5rem;
+
+      & + button {
+        margin-top: var(--space-2);
+        margin-left: 0;
+      }
+    }
   }
 }
 
@@ -682,30 +712,6 @@ body.loading section[name=loading]{
   }
 }
 
-@keyframes upDown {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(1em);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes inOut {
-  0% {
-    transform: scale(0.5);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.5);
-  }
-}
-
 /* TABLES */
 table {
   border: none;
@@ -747,6 +753,88 @@ table {
   }
 }
 
+/* CARDS */
+section[name=cards] {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--space-3);
+  row-gap: var(--space-3);
+
+  @media screen and (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+
+  article {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 300px;
+    background-color: var(--blockQuoteBackgroundColor);
+    box-shadow: var(--height-1);
+    transition: box-shadow .3s ease;
+    border: var(--line);
+
+    h3 {
+      text-align: center;
+      color: var(--cardHeaderColor);
+    }
+
+    i {
+      font-size: 6rem;
+      text-align: center;
+      color: var(--cardIconColor);
+      transition: color .3s ease;
+    }
+
+    button {
+      margin-top: var(--space-2);
+      border: none;
+    }
+
+    &:hover {
+      box-shadow: var(--height-4);
+
+      i {
+        color: var(--cardIconColorHover);
+
+      }
+    }
+
+    & + article {
+      margin-left: 1%;
+    }
+  }
+}
+
+/* FOOTERS */
+
+footer {
+  background-color: var(--footerBackgroundColor);
+  padding: var(--space-2) var(--space-3);
+
+  * {
+    color: var(--footerColor);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  article[name=contact] a {
+    font-size: 1.4em;
+    transition: transform .3s ease;
+    display: inline-block;
+
+    & + a {
+      margin-left: 0.25em;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
 .layout-fullwidth {
   max-width: none;
 
@@ -784,6 +872,11 @@ table {
   display: grid;
   grid-template-columns: repeat(var(--gridColumns), 1fr);
   column-gap: var(--space-2);
+  row-gap: var(--space-3);
+
+  @media screen and (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .columns-3 {
@@ -800,6 +893,14 @@ table {
   align-items: center;
 }
 
+.flex-start {
+  align-items: flex-start;
+}
+
+.flex-end {
+  align-items: flex-end;
+}
+
 .split {
   flex-flow: wrap;
   justify-content: space-between;
@@ -809,5 +910,27 @@ table {
   flex-direction: column;
 }
 
+/* ANIMATIONS */
+@keyframes upDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 
-
+@keyframes inOut {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
