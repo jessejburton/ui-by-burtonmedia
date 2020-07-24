@@ -1,4 +1,4 @@
-# UI by BURTONMEDIA
+# UI by BURTON**MEDIA**
 A minimal class CSS framework for a simple blog style website.
 
 Includes styling for:
